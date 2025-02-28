@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        .Timer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        .countdown {
+            text-align: center;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .time-inputs {
+            margin: 1rem 0;
+        }
+        
+        .time-inputs input {
+            width: 60px;
+            padding: 5px;
+            margin: 0 5px;
+            text-align: center;
+        }
+        
+        #timer {
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="Timer-container">
+        <div id="countdown" class="countdown">
+            <h2>Countdown Timer</h2>
+            <div class="time-inputs">
+                <input type="number" id="hours" min="0" max="23" placeholder="HH">
+                <input type="number" id="minutes" min="0" max="59" placeholder="MM">
+                <input type="number" id="seconds" min="0" max="59" placeholder="SS">
+            </div>
+            <p id="timer">00:00:00</p>
+            <button id="start">Start Timer</button>
+            <button id="reset">Reset</button>
+        </div>
+    </div>
+    <script>
+        let timer = document.getElementById("timer");
+        let start = document.getElementById("start");
+        let reset = document.getElementById("reset");
+        let hoursInput = document.getElementById("hours");
+        let minutesInput = document.getElementById("minutes");
+        let secondsInput = document.getElementById("seconds");
+        
+        let time = 0;
+        let countdown;
+        
+        function updateTimer() {
+            const hours = Math.floor(time / 3600);
+            const minutes = Math.floor((time % 3600) / 60);
+            const seconds = time % 60;
+            
+            const displayHours = hours < 10 ? '0' + hours : hours;
+            const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+            const displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            timer.innerHTML = `${displayHours}:${displayMinutes}:${displaySeconds}`;
+            
+            if(time > 0) {
+                time--;
+                if(time === 0) {
+                    clearInterval(countdown);
+                    countdown = null;
+                    const audio = new Audio('https://www.soundjay.com/buttons/beep-01a.mp3');
+                    audio.play();
+                    start.textContent = "Start Timer";
+                }
+            }
+        }
+        
+        start.addEventListener("click", function() {
+            if(!countdown) {
+                if(time === 0) {
+                    time = (parseInt(hoursInput.value || 0) * 3600) +
+                          (parseInt(minutesInput.value || 0) * 60) +
+                          parseInt(secondsInput.value || 0);
+                    if(time === 0) return;
+                }
+                countdown = setInterval(updateTimer, 1000);
+                start.textContent = "Pause";
+            } else {
+                clearInterval(countdown);
+                countdown = null;
+                start.textContent = "Resume";
+            }
+        });
+        
+        reset.addEventListener("click", function() {
+            clearInterval(countdown);
+            countdown = null;
+            time = 0;
+            timer.innerHTML = "00:00:00";
+            hoursInput.value = "";
+            minutesInput.value = "";
+            secondsInput.value = "";
+            start.textContent = "Start Timer";
+        });
+    </script>
+</body>
+</html>

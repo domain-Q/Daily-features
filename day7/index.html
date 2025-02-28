@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>colour change</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .copy-container {
+            width: 350px;
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .colour-container {
+            width: 100%;
+            height: 150px;
+            background: #272727;
+            color: #fff;
+            font-size: 1rem;
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: monospace;
+        }
+
+        .colour-change {
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: #ff6600;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+        }
+
+        .copy-btn:hover {
+            background: #ff4500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="copy-container">
+        <div class="colour-container">
+
+        </div>
+        <button class="colour-change">change</button>
+    </div>
+</body>
+<script>
+    let change = document.querySelector(".colour-change")
+    function handleClick() {
+        let colourContainer = document.querySelector(".colour-container")
+        let colour = Math.floor(Math.random() * 900000)
+        colourContainer.style.background = `#${colour}`
+
+    }
+    change.addEventListener("click", handleClick)
+</script>
+
+</html>

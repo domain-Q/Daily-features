@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Increase or Decrease Font Size</title>
+    <style>
+        .text-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .font-text {
+            font-size: 16px; /* Initial font size */
+        }
+
+        .size-container {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 5px;
+            border: none;
+            background: #3498db;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-container">
+        <p class="font-text">This is the effective text I am changing the font size of.</p>
+        <div class="size-container">
+            <button class="decrease">-</button>
+            <button class="increase">+</button>
+        </div>
+    </div>
+
+    <script>
+        let text = document.querySelector(".font-text");
+
+        function handleClick(e) {
+            let currentFontSize = parseInt(window.getComputedStyle(text).fontSize); // Extract numerical font size
+            
+            if (e.target.classList.contains("increase")) {
+                text.style.fontSize = (currentFontSize + 2) + "px"; // Increase font size
+            } else if (e.target.classList.contains("decrease") && currentFontSize > 10) {
+                text.style.fontSize = (currentFontSize - 2) + "px"; // Decrease font size (prevent too small)
+            }
+        }
+
+        document.querySelector(".size-container").addEventListener("click", handleClick);
+    </script>
+</body>
+</html>
