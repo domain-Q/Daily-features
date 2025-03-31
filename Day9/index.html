@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and drop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            background: #212121;
+            font-family: "poppins";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .left,
+        .right {
+            color: white;
+            padding: 10px;
+            height: 400px;
+            width: 200px;
+            border: 2px dashed silver;
+        }
+
+        .list {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #212121;
+            background: pink;
+            margin-bottom: 5px;
+            list-style: none;
+            padding: 10px 5px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+           
+                <li class="list" draggable="true">vishal</li>
+                <li class="list" draggable="true">sneha</li>
+                <li class="list" draggable="true">krishna</li>
+                <li class="list" draggable="true">sujal</li>
+                <li class="list" draggable="true">sahil</li>
+         
+
+        </div>
+        <div class="right" dropzone="move">
+
+        </div>
+    </div>
+    <script>
+let list = document.getElem
+    </script>
+</body>
+
+</html>
