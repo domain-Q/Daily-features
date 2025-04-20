@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0 20px;
+        }
+
+        .btn-tooltip {
+            padding: 10px;
+            border-radius: 10px;
+            color: black;
+            background: #fff;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-tooltip:hover {
+            background: #f0f0f0;
+            color: #007bff;
+        }
+        .tooltip-custom{
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            opacity: 0;
+            transform: translatey(10px);
+            transition: opacity 0.2s ease-in-out;
+        }
+        .tooltip-custom.active{
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tooltip-custom::before{
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button data-tooltip="this is the facebook button" class="btn-tooltip">
+            facebook
+        </button>
+        <button data-tooltip="this is the instagram button" class="btn-tooltip">
+            instagram
+        </button>
+        <button data-tooltip="this is the twitter button" class="btn-tooltip">
+            Twitter
+        </button>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tooltip = document.createElement("div")
+        tooltip.className = "tooltip-custom"
+
+
+        const element = document.querySelectorAll("[data-tooltip]")
+        element.forEach((element) => {
+            element.addEventListener("mouseenter", showtooltip)
+            element.addEventListener("mouseleave", hidetooltip)
+            element.addEventListener("mousemove", movetooltip)
+        })
+
+        function showtooltip(e){
+            const text = this.getAttribute("data-tooltip")
+            tooltip.textContent= text;
+            tooltip.classList.add("active")
+            movetooltip.call(this, e)
+        }
+        function hidetooltip(){
+            tooltip.classList.remove("active")
+        }
+        function movetooltip(e){
+           const tooltipHeight = tooltip.offsetHeight
+           const tooltipWidth = tooltip.offsetWidth     
+           tooltip.style.left = `${e.pageX - tooltipWidth / 2}px`
+           tooltip.style.top = `${e.pageY - tooltipHeight - 10}px`
+        }
+        document.body.appendChild(tooltip)
+    })
+</script>
+
+</html>
